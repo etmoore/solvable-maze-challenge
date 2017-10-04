@@ -7,5 +7,27 @@
 //  - it also builds on the accumulator pattern
 
 module.exports = function treeToPaths(node, path) {
+  path = path || [];
 
-}
+  path.push(node.value);
+  let paths = [path];
+
+  node.children.forEach(child => {
+    paths = paths.concat(treeToPaths(child, path.slice()));
+  });
+
+  return paths;
+};
+
+// What's happening internally
+// console.log(
+//   [["A"]].concat(
+//     [["A", "B"]].concat(
+//       [["A", "B", "E"]].concat(
+//         [["A", "C"]].concat(
+//           [["A", "D"]].concat([["A", "D", "F"]].concat([["A", "D", "G"]]))
+//         )
+//       )
+//     )
+//   )
+// );
