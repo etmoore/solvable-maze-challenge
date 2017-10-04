@@ -6,10 +6,17 @@
 //  such as `depth = depth || 0` - it's the way to pass state into recursive functions
 //  without having to pass in the initial value
 
-module.exports = function treeToArray(node, depth) {
+module.exports = function treeToArrayWithDepth(node, depth) {
   // this function takes a node and returns and array
   // so initialize the return value
   var result = [];
+  var depth = depth || 0;
+
+  result.push(node.value + depth);
+
+  node.children.forEach(child => {
+    result = result.concat(treeToArrayWithDepth(child, depth + 1));
+  });
 
   return result;
-}
+};
