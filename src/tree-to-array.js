@@ -8,6 +8,11 @@ module.exports = function treeToArray(node) {
   // this function takes a node and returns and array
   // so initialize the return value
   var result = [];
+  result.push(node.value);
+
+  node.children.forEach(child => {
+    result = result.concat(treeToArray(child));
+  });
 
   return result;
-}
+};
